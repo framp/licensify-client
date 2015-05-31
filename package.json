@@ -1,0 +1,22 @@
+{
+  "name": "licensify",
+  "version": "1.0.0",
+  "description": "",
+  "author": {
+    "name": "Federico Rampazzo",
+    "email": "frampone@gmail.com",
+    "url": "http://framp.me"
+  },
+  "homepage": "https://github.com/framp/licensify",
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha test.js"
+  },
+  "main": "./index",
+  "license": "MIT",
+  "dependencies": {
+    "ursa": "^0.8.5"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5"
+  }
+}
