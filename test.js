@@ -24,7 +24,7 @@ describe('Licensify', function(){
     it('passes an error', function(done){
       client.__main(function(data, callback){
         callback(null, { random: encryptedRandom })
-      }, function() {}, '9296c75d-d88c-4565-97b6-268d8da768b4', 
+      }, function() {}, '9296c75d-d88c-4565-97b6-268d8da768b4', '',
           invalidPrivateKey, 'publicKey', function(err, data){
         assert.equal(err.toString(), 'Error: error:0407A079:rsa routines:RSA_padding_check_PKCS1_OAEP:oaep decoding error')
         done()
@@ -36,7 +36,7 @@ describe('Licensify', function(){
       }, function(data) {
         assert.equal(data.i, '9296c75d-d88c-4565-97b6-268d8da768b4')
         done()
-      }, '9296c75d-d88c-4565-97b6-268d8da768b4', validPrivateKey, 'publicKey', function(){})
+      }, '9296c75d-d88c-4565-97b6-268d8da768b4', '', validPrivateKey, 'publicKey', function(){})
     })
     it('passes the current date', function(done){
       client.__main(function(data, callback){
@@ -44,7 +44,7 @@ describe('Licensify', function(){
       }, function(data) {
         assert.equal(+new Date-data.d<10, true)
         done()
-      }, '', validPrivateKey, 'publicKey', function(){})
+      }, '', '', validPrivateKey, 'publicKey', function(){})
     })
     it('retrieve a random string from the server', function(done){
       client.__main(function(data, callback){
@@ -52,7 +52,15 @@ describe('Licensify', function(){
       }, function(data) {
         assert.equal(!!data.r.length, true)
         done()
-      }, '', validPrivateKey, 'publicKey', function(){})
+      }, '', '', validPrivateKey, 'publicKey', function(){})
+    })
+    it('passes the provided extra data', function(done){
+      client.__main(function(data, callback){
+        callback(null, { random: encryptedRandom })
+      }, function(data) {
+        assert.equal(data.x, 'id123456789')
+        done()
+      }, '9296c75d-d88c-4565-97b6-268d8da768b4', 'id123456789', validPrivateKey, 'publicKey', function(){})
     })
   })
   describe('post', function(){

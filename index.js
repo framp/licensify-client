@@ -14,7 +14,7 @@ var validate = post.bind(0, host, port, validatePath)
 var random = post.bind(0, host, port, randomPath)
 module.exports = main.bind(0, random, validate)
 
-function main(random, validate, id, privateKey, publicKey, callback) {
+function main(random, validate, id, extraData, privateKey, publicKey, callback) {
   random({ i: id }, function(err, data) {
     if (err) return callback(err)
     try {
@@ -22,7 +22,8 @@ function main(random, validate, id, privateKey, publicKey, callback) {
       validate({ 
         i: id, 
         d: +new Date, 
-        r: key.decrypt(data.random, 'base64', 'utf8')
+        r: key.decrypt(data.random, 'base64', 'utf8'),
+        x: extraData
       }, decrypt.bind(0, publicKey, callback))
     } catch (exc) {
       callback(exc)
